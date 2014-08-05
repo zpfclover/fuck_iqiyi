@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	if(localStorage['sizeW']!=undefined&&localStorage['sizeH']!=undefined){
+		$('#sizeW').val(localStorage['sizeW']);
+		$('#sizeH').val(localStorage['sizeH']);
+	}
+	 $('#startBTN').click(function(){
+		localStorage['sizeW']=$('#sizeW').val();
+		localStorage['sizeH']=$('#sizeH').val();
+	 });
+});
