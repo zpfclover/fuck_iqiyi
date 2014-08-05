@@ -5,27 +5,22 @@
    <script type="text/javascript" src="test.js"></script>
   </head>
   <body>
-    <div id="sa"></div>
+      <div id="aaa" z="10" speed="1" type="5" class="s_p" style="position:absolute;left:880px;top:200px;white-space:nowrap;" timeleft="10">60s丧心病狂！！！！！！</div>
 
     <script type="text/javascript">
-$('body').append('<div id="MaskX" style="color:#fcfcfc;font-weight:16px;"></div>');
-$('#MaskX').append('<input id="btn_control" type="button" value="SSSSS" style="postion:absolute;left:12px;bottom:10px;z-index:20;" disabled="disabled" />')
-   
-$("#btn_control").removeAttr('disabled');
-$("#btn_control").click(function(){StartShoot();});
-var IntervalA;
-function StartShoot(){
-	//var IntervalA=setInterval('checkW()',timeAddIndex);
-	$("#btn_control").val('点击停止');
-	$("#btn_control").unbind('click');
-	$("#btn_control").click(function(){StopShoot();});
-}
-function StopShoot(){
-	clearInterval(IntervalA);
-	$("#btn_control").val('点击开始');
-	$("#btn_control").unbind('click');
-	$("#btn_control").click(function(){StartShoot();});
-}
+        var _this=$("#aaa");
+        var timeleft = parseInt($(_this).attr("timeleft"));
+        console.log(timeleft);
+        timeleft--;
+        if (timeleft < 0) {
+            var Zi = parseInt($(_this).attr('z'));
+            $(_this).remove();
+            if (Zi >= 0)
+                zhai5[Zi] = 0;
+        }
+        else
+            $(_this).attr({ "timeleft": timeleft });
+
    </script>
   </body>
 </html>
