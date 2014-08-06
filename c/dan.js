@@ -131,7 +131,7 @@ function AddNewBlock() {
                     var speed = Math.floor((Math.random() * 1.5 + 1)*100)/100;
                     $('#MaskX').append('<div id="p' + PdA[nowI].id + '" z="' + CanGO + '" speed="' + speed + '" type="' + PdA[nowI].attr[1] + '" class="s_p" style="position:absolute;left:' + W + 'px;top:' + CanGO * zhai_X + 'px;white-space:nowrap;" >' + PdA[nowI].content + '</div>');
                     PdA[nowI].isShow = true;
-					PdA.remove(nowI);
+					//PdA.remove(nowI);
                 }
             }
             else if (PdA[nowI].attr[1] == 5) {
@@ -257,4 +257,51 @@ console.log(dan_init_GO);
 		Init();
 		clearInterval(AAAA);
 	}
+}
+
+
+
+$('body').mouseup(function(e){
+	console.log(e.pageX+" "+e.pageY);
+	var X=e.pageX;
+	var X2=$('#MaskX').offset().left;
+	var Y=e.pageY;
+	var delta=X-X2;
+	var deltaY=Y-$('#MaskX').offset().top-$('#MaskX').height();
+	console.log(delta,deltaY)
+	if(delta>10&&delta<$('#MaskX').width()-10&&deltaY>0&&deltaY<18){
+		var nn=new Date().getTime()-startTimeSnap-deltaTimeSnap;
+		var wantToGO=parseInt(PdA[PdA.length - 1].attr[0])*(delta-15)*1000/($('#MaskX').width()-30);
+		var timeDelta=wantToGO-nn;
+		deltaTimeSnap-=timeDelta;
+		
+		ShotReset();
+	}
+	else if(deltaY>18&&deltaY<48&&delta>10&&delta<45){
+		if(StopOrGo==1){
+			StopShoot();
+		}
+		else{
+			StartShoot();
+		}
+	}
+});
+
+function ShotReset(){
+	$('#MaskX').html("");
+	var nn=new Date().getTime()-startTimeSnap-deltaTimeSnap;
+	for(var i=0;i<PdA.length;i++){
+		if(parseFloat(PdA[i].attr[0])<nn/1000-2){
+			PdA[i].isShow=true;
+		}
+		else{
+			PdA[i].isShow=false;
+		}
+	}
+	for(var i=0;i<zhai.length;i++){
+		zhai[i]=0;
+		zhai5[i]=0;
+	}
+	
+	//console.log(PdA);
 }
